@@ -1,0 +1,32 @@
+# trigger configuration
+trigger :
+  branches:
+    include:
+      - main
+
+# pr configuration
+pr:
+  branches:
+    include:
+      - main
+
+# MY PIPELINE
+
+stages:
+  - stage: validate
+    displayName: Validation stage
+    jobs:
+      - job: validate
+        displayName: validatejob
+        pool: 
+         name: MYAGENT
+        steps:
+          - task : 
+- task: AzureCLI@3
+  inputs:
+    connectionType: 'azureRM'
+    azureSubscription: 'MYSERVICE'
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'terraform validate'
+            
