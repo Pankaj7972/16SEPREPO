@@ -1,30 +1,23 @@
-# trigger configuration
 trigger :
   branches:
     include:
-      - main
+      - main    
 
-# pr configuration
-pr:
-  branches:
-    include:
-      - main
-
-# MY PIPELINE
-
-stages:
-  - stage: validate
-    displayName: Validation stage
+stages :
+  - stage: initwalastage
+    displayName : initkastage
+    pool: MYAGENT
     jobs:
-      - job: validate
-        displayName: validatejob
-        pool: 
-         name: MYAGENT
-        steps: 
-          - task: AzureCLI@3
+      - job: initjob
+        displayName: 'myjob'
+        steps:
+          - task: TerraformTask@5
             inputs:
-              connectionType: 'azureRM'
-              azureSubscription: 'MYSERVICE'
-              scriptType: 'ps'
-              scriptLocation: 'inlineScript'
-              inlineScript: 'terraform init'
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'MYSERVICE'
+              backendAzureRmStorageAccountName: 'tfstate098'
+              backendAzureRmContainerName: 'tfstate098container'
+              backendAzureRmKey: 'terraform.tfstate'
+         
+
