@@ -21,3 +21,14 @@ stages :
               backendAzureRmKey: 'terraform.tfstate'
          
 
+  - stage: validatetwalastage
+    displayName : validatekastage
+    pool: MYAGENT
+    jobs:
+      - job: validatejob
+        displayName: 'validatejob'
+        steps:
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
