@@ -22,10 +22,23 @@ stages :
          
 
   - stage: validatetwalastage
-    displayName : validatekastage
+    displayName : validatekastagehai ye baba
     pool: MYAGENT
+
     jobs:
       - job: validatejob
+        displayName: 'validatejobmeinit'
+        steps:
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'MYSERVICE'
+              backendAzureRmStorageAccountName: 'tfstate098'
+              backendAzureRmContainerName: 'tfstate098container'
+              backendAzureRmKey: 'terraform.tfstate'
+  
+      - job: validatejob1
         displayName: 'validatejob'
         steps:
           - task: TerraformTask@5
